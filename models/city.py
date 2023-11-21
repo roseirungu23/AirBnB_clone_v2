@@ -5,10 +5,11 @@ from models.base_model import Base
 from sqlalchemy import Column
 from sqlalchemy import Foreignkey
 from sqlalchemy import String
+from sqlalchemy.orm import relationship
 
-
-class City(BaseModel):
-    """ The city class, contains state ID and name """
+class City(BaseModel, Base):
+    """Inherits from BaseModel and Base """
     __tablename__ = "cities"
-    state_id = Column(String(60),ForeignKey("staetes.id"), nullable=False)
     name = Column(String(128), nullable=False)
+    state_id = Column(String(60),ForeignKey("staetes.id"), nullable=False)
+    places = relationship("Place", backref="cities", cascade="delete")
