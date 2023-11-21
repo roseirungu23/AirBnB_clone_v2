@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-""" State Module for HBNB project """
+""" Defines State class """
+from os import getenv
+import models
 from models.base_model import BaseModel
 from sqlalchemy import Column
 from sqlalchemy import String
