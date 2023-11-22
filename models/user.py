@@ -6,7 +6,7 @@ from sqlalchemy import Column
 from sqlalchemy import String
 from sqlalchemy.orm import relationship
 
-class User(BaseModel):
+class User(BaseModel, Base):
     """This class defines an MySQL user by various attributes"""
     
     __tablename__ = "users"

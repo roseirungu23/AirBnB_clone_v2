@@ -10,12 +10,16 @@ from sqlalchemy import Integer
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 
+place_amenity = Table('place_amenity', Base.metadata,
+                      Column('place_id', String(60), ForeignKey('places.id'), primary_key=True, nullable=False),
+                      Column('amenity_id', String(60), ForeignKey('amenities.id'), primary_key=True, nullable=False),
+                      extend_existing=True
+                      )
+
+
 class Amenity(BaseModel, Base):
      """This class defines a place by various attributes"""
      __tablename__ = "amenities"
      name = Column(String(128), nullable=False)
-     place_amenities = relationship("Place", secondary='place_amenity', viewonly=False)
-     place_amenity = Table('place_amenity', Base.metadata,
-                      Column('place_id', String(60), ForeignKey('places.id'), primary_key=True, nullable=False),
-                      Column('amenity_id', String(60), ForeignKey('amenities.id'), primary_key=True, nullable=False)
-                      )
+     places = relationship("Place", secondary="place_amenity", 
+                                    back_populates="amenities", overlaps="place_amenities")
